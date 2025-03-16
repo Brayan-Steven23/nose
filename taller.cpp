@@ -6,8 +6,8 @@ struct Producto {
     char nombre[40];
     struct Producto* siguiente;
 };
-// termino bloque de codigo
-struct Producto *cab,*aux,*aux2;
+// termino bloque de declarar lo que tiene Producto
+struct Producto *princ,*bus,*agg;
 /*void Agregar(){
     int g;
     //for()
@@ -36,44 +36,43 @@ struct Producto *cab,*aux,*aux2;
          }
 }*/
 void Agregar() {
-    int g;
+    int numero;
     //string nombr;
     cout << "\nPor favor ingrese el id que desea: ";
-    cin >> g;
+    cin >> numero;
     
-    //getline(cin,nombr,'\n');
-    // Verificar si el ID ya existe
-    //Producto *aux = cab;
-    aux=(struct Producto *) malloc (sizeof(struct Producto));
-    aux=cab;
-    while (aux != NULL) {
-        if (aux->id == g) {
+
+
+    bus=(struct Producto *) malloc (sizeof(struct Producto));
+    bus=princ;
+    while (bus != NULL) {
+        if (bus->id == numero) {
             cout << "\nYa este registrado ^~^ \n";
             return; // Salimos de la función para no duplicar el ID
         }
-        aux = aux->siguiente;
+        bus = bus->siguiente;
     }
     cout << "\nPor favor ingrese el nombre del Producto: ";
     // Crear un nuevo nodo
-    aux2=(struct Producto *)malloc(sizeof(Producto));
-    if (aux2 == NULL) {
+    agg=(struct Producto *)malloc(sizeof(Producto));
+    if (agg == NULL) {
         cout << "\nError: No se pudo asignar memoria.\n";
         return;
     }
     cin.ignore();
-    cin.getline(aux2->nombre,40);
-    aux2->id = g;
-    aux2->siguiente = NULL;
+    cin.getline(agg->nombre,40);
+    agg->id = numero;
+    agg->siguiente = NULL;
 
     // Insertar en la lista
-    if (cab == NULL) {
-        cab = aux2; // Si la lista está vacía, el nuevo nodo es la cabeza
+    if (princ == NULL) {
+        princ = agg; // Si la lista está vacía, el nuevo nodo es la cabeza
     } else {
-        aux = cab;
-        while (aux->siguiente != NULL) { // Buscar el último nodo
-            aux = aux->siguiente;
+        bus = princ;
+        while (bus->siguiente != NULL) { // Buscar el último nodo
+            bus = bus->siguiente;
         }
-        aux->siguiente = aux2; // Agregar el nuevo nodo al final
+        bus->siguiente = agg; // Agregar el nuevo nodo al final
     }
 
     cout << "\nProducto agregado correctamente -_-\n";
@@ -81,11 +80,11 @@ void Agregar() {
 // termino bloque de codigo
 
 int Mostrar(){
-    if(cab==NULL){
+    if(princ==NULL){
 cout<<"\nvacido Gracia a Dios ^_^\n";
     }else{
-    for(aux=cab; aux!=NULL; aux=aux->siguiente){
-    cout<<"su id es: "<<aux->id<<"\n"<<"su nombre: "<<aux->nombre<<"\n";
+    for(bus=princ; bus!=NULL; bus=bus->siguiente){
+    cout<<"su id es: "<<bus->id<<"\n"<<"su nombre: "<<bus->nombre<<"\n";
     }
   }
     return 0;
@@ -115,25 +114,25 @@ cout<<"\nvacido Gracia a Dios ^_^\n";
 return 0;
 }*/
 int Buscar() {
-    if (cab == NULL) {
+    if (princ == NULL) {
         cout << "\nNo se puede realizar la busqueda *'_'*\n";
         return 0;
     }
 
-    int b;
+    int buscar;
     cout << "\nIngrese el ID que desea buscar: ";
-    cin >> b;
+    cin >> buscar;
 
-    aux = cab;
+    bus = princ;
     bool encontrado = false;
 
-    while (aux != NULL) {
-        if (b == aux->id) {
-            cout << "\nID encontrado: " << aux->id << "\nNombre: " << aux->nombre << "\n";
+    while (bus != NULL) {
+        if (buscar == bus->id) {
+            cout << "\nID encontrado: " << bus->id << "\nNombre: " << bus->nombre << "\n";
             encontrado = true;
             break; // Detener la búsqueda si se encuentra el producto
         }
-        aux = aux->siguiente;
+        bus = bus->siguiente;
     }
 //forma abrebiada que encontre fue (!encontrado)
     if (encontrado==false) {
@@ -146,22 +145,22 @@ int Buscar() {
 // termino bloque de codigo
 
 void Eliminar() {
-    if (cab == NULL) {
+    if (princ == NULL) {
         cout << "\nNo hay productos registrados.\n";
         return;
     }
 
-    int d;
+    int numero;
     cout << "\nIngrese el ID del producto a eliminar: ";
-    cin >> d;
+    cin >> numero;
     
-  struct Producto *auxbor=cab, *auxatras = NULL;
+  struct Producto *auxbor=princ, *auxatras = NULL;
 
     while (auxbor != NULL) {
-        if (auxbor->id == d) {  
+        if (auxbor->id == numero) {  
             // Si es el primer nodo de la lista
             if (auxatras == NULL) {
-                cab = auxbor->siguiente;
+                princ = auxbor->siguiente;
             } else {
                 auxatras->siguiente = auxbor->siguiente;
             }
@@ -178,38 +177,41 @@ void Eliminar() {
 }
 
 //termino bloque de codigo
+
 int Contar(){
     int contador =0;
-    if (cab==NULL){
+    if (princ==NULL){
         cout<<"\n ;--no se ah encontrado Producto para hacer el conteo ;) "<<contador<<"\n";
         return 0;
     }else{ 
-    for(aux=cab; aux!=NULL; aux=aux->siguiente){
+    for(bus=princ; bus!=NULL; bus=bus->siguiente){
         contador++;
         } 
     }
 return cout<<"\n El numero de Producto son: "<<contador<<"\n",0;
 }
+
 // termino bloque de codigo
+
 void Modificar(){
-    if (cab == NULL) {
+    if (princ == NULL) {
         cout << "\n:--No ha creado nada en estos momentos para modoficar:)\n";
         return;
     }
-    aux=cab;
-    int d;
-    cout<<"ingrese";cin>>d;
-while(aux!=NULL){
-    if(aux->id==d){
-        cout<<"cambiar ID";
-        cin>>d;
-        aux->id=d;
-        char a='n';
+    bus=princ;
+    int numero;
+    cout<<"ingrese el ID ";cin>>numero;
+while(bus!=NULL){
+    if(bus->id==numero){
+        cout<<"cambiar ID: ";
+        cin>>numero;
+        bus->id=numero;
+        char nombre='n';
         cout<<"De sea cambiar el nombre s or n: ";
-        cin>>a;
-        if (a =='s'){
-            cout<<"ingresa el nuevo: ";cin.ignore(); cin.getline(aux->nombre,40);
-        }else if (a!='n'){
+        cin>>nombre;
+        if (nombre =='s'){
+            cout<<"ingresa el nuevo: ";cin.ignore(); cin.getline(bus->nombre,40);
+        }else if (nombre!='n'){
         cout<<" por fabor cuida el sistema";
         }else{
             cout<<"\n entiendo \n";
@@ -218,10 +220,12 @@ while(aux!=NULL){
         cout<<"\nse hizo el cambio correcto\n";
         break;
     }
-    aux=aux->siguiente;
+    bus=bus->siguiente;
 }
 }
+
 //termino bloque de codigo
+
 int main(){
     int ocp;
     do{
