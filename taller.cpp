@@ -1,5 +1,5 @@
 #include<iostream>
-#include <malloc.h>
+#include<malloc.h>
 using namespace std;
 struct Producto {
     int id;
@@ -38,7 +38,7 @@ struct Producto *cab,*aux,*aux2;
 void Agregar() {
     int g;
     //string nombr;
-    cout << "\nPor favor ingrese el id que desea:\n ";
+    cout << "\nPor favor ingrese el id que desea: ";
     cin >> g;
     
     //getline(cin,nombr,'\n');
@@ -48,12 +48,12 @@ void Agregar() {
     aux=cab;
     while (aux != NULL) {
         if (aux->id == g) {
-            cout << "\nYa este registrado\n";
+            cout << "\nYa este registrado ^~^ \n";
             return; // Salimos de la función para no duplicar el ID
         }
         aux = aux->siguiente;
     }
-    cout << "\nPor favor ingrese el nombre del Producto:\n ";
+    cout << "\nPor favor ingrese el nombre del Producto: ";
     // Crear un nuevo nodo
     aux2=(struct Producto *)malloc(sizeof(Producto));
     if (aux2 == NULL) {
@@ -76,13 +76,13 @@ void Agregar() {
         aux->siguiente = aux2; // Agregar el nuevo nodo al final
     }
 
-    cout << "\nProducto agregado correctamente.\n";
+    cout << "\nProducto agregado correctamente -_-\n";
 }
 // termino bloque de codigo
 
 int Mostrar(){
     if(cab==NULL){
-cout<<"\nvacido Gracia a Dios\n";
+cout<<"\nvacido Gracia a Dios ^_^\n";
     }else{
     for(aux=cab; aux!=NULL; aux=aux->siguiente){
     cout<<"su id es: "<<aux->id<<"\n"<<"su nombre: "<<aux->nombre<<"\n";
@@ -116,7 +116,7 @@ return 0;
 }*/
 int Buscar() {
     if (cab == NULL) {
-        cout << "\nNo ha creado nada en estos momentos.\n";
+        cout << "\nNo se puede realizar la busqueda *'_'*\n";
         return 0;
     }
 
@@ -135,8 +135,8 @@ int Buscar() {
         }
         aux = aux->siguiente;
     }
-
-    if (!encontrado) {
+//forma abrebiada que encontre fue (!encontrado)
+    if (encontrado==false) {
         cout << "\nNo se ha encontrado el producto con ese ID.\n";
     }
 
@@ -144,14 +144,44 @@ int Buscar() {
 }
 
 // termino bloque de codigo
-void Eliminar(){
 
+void Eliminar() {
+    if (cab == NULL) {
+        cout << "\nNo hay productos registrados.\n";
+        return;
+    }
+
+    int d;
+    cout << "\nIngrese el ID del producto a eliminar: ";
+    cin >> d;
+    
+  struct Producto *auxbor=cab, *auxatras = NULL;
+
+    while (auxbor != NULL) {
+        if (auxbor->id == d) {  
+            // Si es el primer nodo de la lista
+            if (auxatras == NULL) {
+                cab = auxbor->siguiente;
+            } else {
+                auxatras->siguiente = auxbor->siguiente;
+            }
+            
+            free(auxbor);  // Liberar la memoria correctamente
+            cout << "\nProducto eliminado correctamente.\n";
+            return;
+        }
+        auxatras = auxbor;
+        auxbor = auxbor->siguiente;
+    }
+
+    cout << "\nProducto no encontrado.\n";
 }
+
 //termino bloque de codigo
 int Contar(){
     int contador =0;
     if (cab==NULL){
-        cout<<"\n no se ah encontrado Producto para hacer el conteo "<<contador<<"\n";
+        cout<<"\n ;--no se ah encontrado Producto para hacer el conteo ;) "<<contador<<"\n";
         return 0;
     }else{ 
     for(aux=cab; aux!=NULL; aux=aux->siguiente){
@@ -162,13 +192,40 @@ return cout<<"\n El numero de Producto son: "<<contador<<"\n",0;
 }
 // termino bloque de codigo
 void Modificar(){
-
+    if (cab == NULL) {
+        cout << "\n:--No ha creado nada en estos momentos para modoficar:)\n";
+        return;
+    }
+    aux=cab;
+    int d;
+    cout<<"ingrese";cin>>d;
+while(aux!=NULL){
+    if(aux->id==d){
+        cout<<"cambiar ID";
+        cin>>d;
+        aux->id=d;
+        char a='n';
+        cout<<"De sea cambiar el nombre s or n: ";
+        cin>>a;
+        if (a =='s'){
+            cout<<"ingresa el nuevo: ";cin.ignore(); cin.getline(aux->nombre,40);
+        }else if (a!='n'){
+        cout<<" por fabor cuida el sistema";
+        }else{
+            cout<<"\n entiendo \n";
+        }
+       
+        cout<<"\nse hizo el cambio correcto\n";
+        break;
+    }
+    aux=aux->siguiente;
+}
 }
 //termino bloque de codigo
 int main(){
     int ocp;
     do{
-        cout<<"\t *TEAM WAWAWA*\n \t \t G*TT*G*TT*\n\n Selecione su opcion:\n 0.Salir\n 1.Agregar producto \n 2.Mostrar productos \n 3.Buscar producto \n 4.Eliminar producto \n 5.Contar productos \n 6.Modificar productos \n 7.Reclamos\n digite aqui por fabor: ";
+        cout<<"\t***TEAM WAWAWA**\n \t*\t*G*TT*G*TT*\n\n Selecione su opcion:\n 0.Salir\n 1.Agregar producto \n 2.Mostrar productos \n 3.Buscar producto \n 4.Eliminar producto \n 5.Contar productos \n 6.Modificar productos \n 7.Reclamos\n digite aqui por fabor: ";
         cin>>ocp;
         switch(ocp){
             case 0: cout<<"\n\tEspero que lleves una experiencia agradable hasta la proxima\n"; system("pause");break;
