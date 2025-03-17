@@ -37,7 +37,7 @@ struct Producto *princ,*bus,*agg;
 }*/
 void Agregar() {
     int numero;
-    //string nombr;
+    
     cout << "\nPor favor ingrese el id que desea: ";
     cin >> numero;
     
@@ -201,20 +201,19 @@ void Modificar(){
     bus=princ;
     int numero;
     cout<<"ingrese el ID ";cin>>numero;
+    
 while(bus!=NULL){
     if(bus->id==numero){
-        cout<<"cambiar ID: ";
-        cin>>numero;
         bus->id=numero;
         char nombre='n';
         cout<<"De sea cambiar el nombre s or n: ";
         cin>>nombre;
-        if (nombre =='s'){
+        if (nombre =='s' or nombre == 'S' ){
             cout<<"ingresa el nuevo: ";cin.ignore(); cin.getline(bus->nombre,40);
-        }else if (nombre!='n'){
+        }else if (nombre!='n' || nombre== 'N' ){
         cout<<" por fabor cuida el sistema";
         }else{
-            cout<<"\n entiendo \n";
+            cout<<"\n Vale entiendo \n";
         }
        
         cout<<"\nse hizo el cambio correcto\n";
@@ -223,7 +222,11 @@ while(bus!=NULL){
     bus=bus->siguiente;
 }
 }
-
+void salir(){
+    free(princ);
+    free(bus);
+    free(agg);
+}
 //termino bloque de codigo
 
 int main(){
@@ -232,7 +235,7 @@ int main(){
         cout<<"\t***TEAM WAWAWA**\n \t*\t*G*TT*G*TT*\n\n Selecione su opcion:\n 0.Salir\n 1.Agregar producto \n 2.Mostrar productos \n 3.Buscar producto \n 4.Eliminar producto \n 5.Contar productos \n 6.Modificar productos \n 7.Reclamos\n digite aqui por fabor: ";
         cin>>ocp;
         switch(ocp){
-            case 0: cout<<"\n\tEspero que lleves una experiencia agradable hasta la proxima\n"; system("pause");break;
+            case 0: salir();cout<<"\n\tEspero que lleves una experiencia agradable hasta la proxima\n"; system("pause");break;
             case 1:system("pause"); system("cls"); cout<<"\t Bienvenido a la opc#1\n"; Agregar();   system("pause");system("cls");break;
             case 2:system("pause"); system("cls"); cout<<"\t Bienvenido a la opc#2\n"; Mostrar();   system("pause");system("cls");break;
             case 3:system("pause"); system("cls"); cout<<"\t Bienvenido a la opc#3\n"; Buscar();    system("pause");system("cls");break;
