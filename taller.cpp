@@ -6,6 +6,7 @@ struct Producto {
     char nombre[40];
     struct Producto* siguiente;
 };
+
 // termino bloque de declarar lo que tiene Producto
 struct Producto *princ,*bus,*agg;
 /*void Agregar(){
