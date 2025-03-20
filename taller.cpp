@@ -223,6 +223,15 @@ while(bus!=NULL){
 }
 }
 void salir(){
+    if(princ!=NULL){
+        struct Producto *liberar;
+while (princ!=NULL){
+    liberar=princ;
+    princ=princ->siguiente;
+    free(liberar);
+}
+ princ=NULL;
+    }
     free(princ);
     free(bus);
     free(agg);
