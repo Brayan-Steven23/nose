@@ -8,111 +8,65 @@ struct Producto {
 };
 // termino bloque de declarar lo que tiene Producto
 struct Producto *princ,*bus,*agg;
-/*void Agregar(){
-    int g;
-    //for()
-     cout<<"\n Por fabor ingresar el id que desea: ";
-        cin>>g;
-    if(cab==NULL){
-        cab = (struct Producto *) malloc (sizeof(struct Producto));
-        cab->id=g;
-      
-        cab->nombre=g[40];/
-        cab->siguiente=NULL;
-         }else if(cab!=NULL){
-            for(aux=cab; aux!=NULL; aux=aux->siguiente){
-                if(g==aux->id){
-                      cout<<"\nya esta registrado\n";
-                }    }
 
-}else if(){
-                        aux = (struct Producto *) malloc (sizeof(struct Producto));
-                        aux->id=g;
-                        aux->siguiente=NULL;
-                        cab->siguiente=aux;
-                        aux=NULL;
-                        free(aux);
-                     cout<<"EL";
-         }
-}*/
 void Agregar() {
     int numero;
-    
-    cout << "\nPor favor ingrese el id que desea: ";
-    cin >> numero;
-    
-
-
-    bus=(struct Producto *) malloc (sizeof(struct Producto));
-    bus=princ;
-    while (bus != NULL) {
-        if (bus->id == numero) {
-            cout << "\nYa este registrado ^~^ \n";
-            return; // Salimos de la función para no duplicar el ID
+    agg=(struct Producto *) malloc (sizeof(struct Producto));
+        cout << "\nPor favor ingrese el id que desea: ";
+        cin >> numero;
+        if(princ!=NULL){
+            bus=princ;
+            while(bus!=NULL){
+            if(bus->id==numero){
+                cout<<"\n (•‿•) no se puede hacer (•‿•) \n";
+                free(bus);
+                free(agg);
+                return;
+            }
+            bus=bus->siguiente;
         }
-        bus = bus->siguiente;
+free(bus);
     }
-    cout << "\nPor favor ingrese el nombre del Producto: ";
-    // Crear un nuevo nodo
-    agg=(struct Producto *)malloc(sizeof(Producto));
-    if (agg == NULL) {
-        cout << "\nError: No se pudo asignar memoria.\n";
-        return;
-    }
-    cin.ignore();
-    cin.getline(agg->nombre,40);
-    agg->id = numero;
-    agg->siguiente = NULL;
-
-    // Insertar en la lista
-    if (princ == NULL) {
-        princ = agg; // Si la lista está vacía, el nuevo nodo es la cabeza
-    } else {
-        bus = princ;
-        while (bus->siguiente != NULL) { // Buscar el último nodo
-            bus = bus->siguiente;
+       
+        agg->id=numero;
+        cout << "\nPor favor ingrese el Nombre que desea: ";
+        cin.ignore();
+        cin.getline(agg->nombre,40);
+        if(princ==NULL){
+        princ=agg;
+        princ->siguiente=NULL;
+        
+        }else{
+            agg->siguiente=princ;
+            princ=agg;
+           
         }
-        bus->siguiente = agg; // Agregar el nuevo nodo al final
-    }
-
-    cout << "\nProducto agregado correctamente -_-\n";
+        agg=NULL;
+    free(agg);
+ 
+    cout << "\n Producto agregado correctamente -_- \n";
 }
+
 // termino bloque de codigo
 
 int Mostrar(){
     if(princ==NULL){
-cout<<"\nvacido Gracia a Dios ^_^\n";
+
+cout<<"\n vacido Gracia a Dios ^_^ \n";
+
     }else{
-    for(bus=princ; bus!=NULL; bus=bus->siguiente){
+
+    for(bus=princ;bus!=NULL;bus=bus->siguiente){
+
     cout<<"su id es: "<<bus->id<<"\n"<<"su nombre: "<<bus->nombre<<"\n";
+
     }
   }
     return 0;
 }
+
 // termino bloque de codigo
-/*int Buscar(){ 
 
-
-    bool encontrado = false;
-    if(cab==NULL){
-        cout<<"\nno a creado nada en estos momentos\n";
-            }else{
-                int b;
-                cout<<"\ningrese el id que desea buscar:"; cin>>b;
-            for(aux=cab; aux!=NULL; aux=aux->siguiente){
-                if(b==aux->id){
-            cout<<"\nsu id es: "<<aux->id<<"\n"<<"su nombre: "<<aux->nombre<<"\n";
-            aux=aux2->siguiente=NULL;
-
-            }else{
-                 cout<<"\nno se ah encontrado\n";
-            }
-           
-        }
-        }
-
-return 0;
-}*/
 int Buscar() {
     if (princ == NULL) {
         cout << "\nNo se puede realizar la busqueda *'_'*\n";
@@ -222,6 +176,9 @@ while(bus!=NULL){
     bus=bus->siguiente;
 }
 }
+
+//termino bloque de codigo
+
 void salir(){
     if(princ!=NULL){
         struct Producto *liberar;
@@ -230,10 +187,14 @@ while (princ!=NULL){
     princ=princ->siguiente;
     free(liberar);
 }
- princ=NULL;
+liberar=NULL;
+free(liberar);
     }
+    princ=NULL;
     free(princ);
+    bus=NULL;
     free(bus);
+    agg=NULL;
     free(agg);
 }
 //termino bloque de codigo
@@ -256,5 +217,5 @@ int main(){
         } 
             }while(ocp!=0);
         system("cls");
-    return cout<<"\nsaludo desde la pricion\n",0;
+    return 0;
 }
