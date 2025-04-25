@@ -1,18 +1,17 @@
 #include <iostream>
-#include <locale.h>
 using namespace std;
 
 struct Pelicula{
     char nombre[100];
     int fecha=0;
+    char gener[50];
     char genero;
 	double dinero=0;
 	struct Pelicula*iz;
 	struct Pelicula*de;
 };
  struct Pelicula *raiz,*bus,*aux;
- //struct Pelicula *bus;
- //struct Pelicula *aux;
+int contador;
  void llenadoRaiz(){
 	if(bus->fecha<aux->fecha){
         if(bus->iz==nullptr){
@@ -28,11 +27,14 @@ struct Pelicula{
         }
         bus=bus->de;
         llenadoRaiz();
-    }
+    }else{
 cout<<"\nerroe en posicionar\n";
- }
+ } 
+}
  void Agg(){
-	int a=1;
+	
+contador++;
+
     //char genero;
  if (raiz==nullptr){
  		raiz=(struct Pelicula *)malloc(sizeof(struct Pelicula));
@@ -41,21 +43,102 @@ cout<<"\nerroe en posicionar\n";
 		cin.getline(raiz->nombre,100);
         cout<<"\n Por Fabor Poner El Year: ";
         cin>>raiz->fecha;
-        cout<<"\n Genero: T,S,A";
-        cin>>raiz->genero;
+		int c=1;
+		char g;
+		do{
+        cout<<"\n Genero: T=TERROR//S=SUSPENSO//A=ACCION";
+		cin>>g;
+		g=tolower(g);
+		if(g=='t'){
+			c=0;
+			raiz->genero=g;
+			const char gen[7]={'T','E','R','R','O','R','\0'};
+			for(int i=0; i<7; i++){raiz->gener[i]=gen[i];}
+			
+		}else if(g=='s'){
+			c=0;
+			raiz->genero=g;
+			const char gen[9]={'S','U','S','P','E','N','S','O','\0'};
+			for(int i=0; i<9; i++){raiz->gener[i]=gen[i];}
+		}else if(g=='a'){
+			c=0;
+			raiz->genero=g;
+			const char gen[7]={'A','C','C','I','O','N','\0'};
+			for(int i=0; i<7; i++){raiz->gener[i]=gen[i];}
+		}else{
+			cout<<"POR fabor elige unos de los genero o llamar para agg S/N";char p;cin>>p;
+			p=tolower(p);
+			if(p=='s'){
+				cout<<"\nvamos a continuar\n";
+			}else if(p=='n'){
+				cout<<"\nListo entoces no podras hacer el registro\n";
+				c=0;
+				raiz=nullptr;
+				free(raiz);
+				return;
+			}else{
+				cout<<"\nCuidar el sistema es lo mas importante\n";
+				c=0;
+				raiz=nullptr;
+				free(raiz);
+				return;
+			}
+		}
+		}while(c!=0);
         raiz->de=raiz->iz=nullptr;
-        //if((genero=='t' or genero=='s')or(gene))
+        
 	}else if(raiz!=nullptr){
-		a++;
 		aux=(struct Pelicula *)malloc(sizeof(struct Pelicula));
-		cout<<"\n vale por lo tanto este sera tu #"<<a<<" :\n ";
+		cout<<"\n Este sera tu #"<<contador<<" :\n ";
 		cin.ignore();
         cout<<"\n Nombre De la Pelicula:";
 		cin.getline(aux->nombre,100);
         cout<<"\n Por Fabor Poner El Year: ";
         cin>>aux->fecha;
-        cout<<"\n Genero: T,S,A";
-        cin>>aux->genero;
+		int c=1;
+		char g;
+		do{
+        cout<<"\n Genero: T=TERROR//S=SUSPENSO//A=ACCION";
+		cin>>g;
+		g=tolower(g);
+		if(g=='t'){
+			c=0;
+			raiz->genero=g;
+			const char gen[7]={'T','E','R','R','O','R','\0'};
+			for(int i=0; i<7; i++){raiz->gener[i]=gen[i];}
+			
+		}else if(g=='s'){
+			c=0;
+			raiz->genero=g;
+			const char gen[9]={'S','U','S','P','E','N','S','O','\0'};
+			for(int i=0; i<9; i++){raiz->gener[i]=gen[i];}
+		}else if(g=='a'){
+			c=0;
+			raiz->genero=g;
+			const char gen[7]={'A','C','C','I','O','N','\0'};
+			for(int i=0; i<7; i++){raiz->gener[i]=gen[i];}
+		}else{
+			cout<<"POR fabor elige unos de los genero o llamar para agg S/N";char p;cin>>p;
+			p=tolower(p);
+			if(p=='s'){
+				cout<<"\nvamos a continuar\n";
+			}else if(p=='n'){
+				cout<<"\nListo entoces no podras hacer el registro\n";
+				c=0;
+				contador--;
+				aux=nullptr;
+				free(aux);
+				return;
+			}else{
+				contador--;
+				cout<<"\nCuidar el sistema es lo mas importante\n";
+				c=0;
+				aux=nullptr;
+				free(aux);
+				return;
+			}
+		}
+		}while(c!=0);
 		aux->iz = aux->de = nullptr;
 	bus=raiz;
 
@@ -63,22 +146,20 @@ cout<<"\nerroe en posicionar\n";
 	}else{
 		cout<<"\nError drastico\n";
 	}
+	cout<<"\nllenado Exelent\n";
  }
 
  int corredor(struct Pelicula *bus2){
-	cout<<"El valor es: "<<bus2->fecha<<"\n";
+	cout<<"La Fecha es: "<<bus2->fecha<<"// \n El Nombre es: "<<bus2->nombre<<"// \n El Dinero recaudado fue: "<<bus2->dinero
+	<<"// \n El Genero es: "<<bus2->gener<<"// \n\n";
 	if(bus2->iz!=NULL){
-	
 	corredor(bus2->iz);
-	
 	}
 	if(bus2->de!=NULL){
-	 
 	corredor(bus2->de);
 	}
-	cout<<"\nfinalizo el recorrido#\n";
-		return 0;
-	}
+	return 0;
+}
 
 int PreMostrar(){
 
@@ -92,6 +173,52 @@ int PreMostrar(){
  	return 0;
  }
  
+ int corredorin(struct Pelicula *bus2){
+	if(bus2->iz!=NULL){
+	corredor(bus2->iz);
+	}cout<<"La Fecha es:// "<<bus2->fecha<<"\n El Nombre es: //"<<bus2->nombre<<"\n El Dinero recaudado fue: //"<<bus2->dinero
+	<<"\n El Genero es: //"<<bus2->gener<<"\n\n";
+	if(bus2->de!=NULL){
+	corredor(bus2->de);
+	}
+	cout<<"La Fecha es:// "<<bus2->fecha<<"\n El Nombre es: //"<<bus2->nombre<<"\n El Dinero recaudado fue: //"<<bus2->dinero
+	<<"\n El Genero es: //"<<bus2->gener<<"\n";
+	
+ return 0;
+}
+
+ int inorden(){
+	if(raiz==nullptr){
+        cout<<"\n No ahi que hacer mano\n";
+        return 0;
+	}else if(raiz!=nullptr) {
+     corredorin(raiz);
+	} 
+	return 0;
+ }
+
+int poscorredor(struct Pelicula *bus2){
+	if(bus2->iz!=NULL){
+		corredor(bus2->iz);
+		}
+	if(bus2->de!=NULL){
+		corredor(bus2->de);
+		}
+		cout<<"La Fecha es:// "<<bus2->fecha<<"\n El Nombre es: //"<<bus2->nombre<<"\n El Dinero recaudado fue: //"<<bus2->dinero
+		<<"\n El Genero es: //"<<bus2->gener<<"\n\n";
+	return 0;
+}
+
+int posorden(){
+	if(raiz==nullptr){
+        cout<<"\n No ahi que hacer mano\n";
+        return 0;
+	}else if(raiz!=nullptr) {
+     poscorredor(raiz);
+	} 
+	return 0;
+}
+
  int buscarN(){
  	
  	
@@ -116,12 +243,18 @@ main(){
  	switch(a){
  	case 0: system("cls"); cout<<"\t Bienvenido Opcion Principal\1 \n"; Agg(); break;
  		
- 	case 1: system("cls"); cout<<"\t Bienvenido Opcion#1\2 \n"; cout<<"\nen esta opcion ahi 3 forma de mostrar \n 1,preorden \n 2.Posorden \n 3.Inorden \n selecione opcion: "; cin>>b; switch(b){
-		case 1: PreMostrar(); break;
-		case 2:  break; 
-		case 3:  break; 
-		default: cout<<"no se reconoce"; break;
-	}break;
+ 	case 1: system("cls"); do{cout<<"\t Bienvenido Opcion#1\2 \n"; cout<<"\n en esta opcion ahi 3 forma de mostrar \n 1.Preorden\5 \n 2.Inorden\3 \n 3.Posorden \n 4.salir \n selecione opcion: "; cin>>b; switch(b){
+		case 1: system("cls"); cout<<"\t Bienvenido Opcio# Preorden\2 \n"; PreMostrar(); break;
+		case 2: system("cls"); cout<<"\t Bienvenido Opcio# inorden\2 \n"; inorden(); break; 
+		case 3: system("cls"); cout<<"\t Bienvenido Opcio# Posorden\2 \n"; posorden(); break; 
+		case 4: cout<<"saliendo \n"; break;
+		default: cout<<"\n no se reconoce \6\7 \n"; break;
+		
+	}
+	system("pause");
+	system("cls");
+}while(b!=4);
+break;
 
 	case 2: system("cls"); cout<<"\t Bienvenido Opcion#2\3 \n"; buscarN(); break;
  	
